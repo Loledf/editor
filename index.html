@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="theme-color" content="#ffffff">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Редактор отчётов</title>
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bar" role="toolbar" aria-label="Панель редактора">
+<div class="tools">
+  <span class="sep"></span>
+  <button data-h="h1" title="Заголовок" aria-label="Заголовок"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6v12M12 6v12M4 12h8"/><path d="M16.5 10.5L19.5 8v10"/></svg></button>
+  <button data-h="h2" title="Подзаголовок" aria-label="Подзаголовок"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6v12M12 6v12M4 12h8"/><path d="M16 10.5c0-1.4 1.1-2.5 2.5-2.5S21 9 21 10.4c0 2.6-5 4.3-5 7.6h5"/></svg></button>
+  <button data-h="h3" title="Подзаголовок 3-го уровня" aria-label="Подзаголовок 3-го уровня"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6v12M12 6v12M4 12h8"/><path d="M16.2 9.2c.5-.8 1.3-1.2 2.2-1.2 1.4 0 2.4.9 2.4 2.1 0 1.2-1 2-2.4 2 1.6 0 2.6.9 2.6 2.2 0 1.4-1.1 2.4-2.6 2.4-1 0-1.9-.5-2.4-1.3"/></svg></button>
+  <span class="sep"></span>
+  <button id="bBlock" title="Блок" aria-label="Блок"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path class="f" d="M3 6.5A2.5 2.5 0 0 1 5.5 4H6v16h-.5A2.5 2.5 0 0 1 3 17.5z"/><path d="M10 9.5h7M10 14.5h4.5"/></svg></button>
+  <span class="tw-wrap">
+    <button id="bTable" title="Таблица" aria-label="Таблица" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M3 14.5h18M9.5 9.5V20"/></svg></button>
+    <div class="picker" id="picker"><div class="grid" id="grid"></div><div class="psize" id="psize"></div></div>
+  </span>
+  <button id="bPattern" title="Паттерн таблицы (цветная полоска)" aria-label="Паттерн таблицы"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 4h3v16H3z" class="f"/><path d="M8 9h10M8 13h7"/></svg></button>
+  <button class="tb" data-t="row" title="Добавить строку" aria-label="Добавить строку"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="10" rx="2.5"/><path d="M3 8h18"/><path d="M12 15.5v6M9 18.5h6"/></svg></button>
+  <button class="tb" data-t="col" title="Добавить столбец" aria-label="Добавить столбец"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="10" height="18" rx="2.5"/><path d="M8 3v18"/><path d="M15.5 12h6M18.5 9v6"/></svg></button>
+  <button class="tb" data-t="delrow" title="Удалить строку" aria-label="Удалить строку"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="10" rx="2.5"/><path d="M3 8h18"/><path d="M9 18.5h6"/></svg></button>
+  <button class="tb" data-t="delcol" title="Удалить столбец" aria-label="Удалить столбец"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="10" height="18" rx="2.5"/><path d="M8 3v18"/><path d="M15.5 12h6"/></svg></button>
+  <span class="sep"></span>
+  <button id="bNote" title="Сноска" aria-label="Сноска"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 19L8.5 7l5 12M5.3 15h6.4"/><path d="M17 6.2L19 4.5V11"/></svg></button>
+  <button id="bFill" title="Заливка чёрным" aria-label="Заливка чёрным"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2.5"/><path class="f" d="M20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11z"/></svg></button>
+  <button id="bMark" title="Выделить цветом" aria-label="Выделить цветом"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4l5.5 5.5-8 8H7.5V13z"/><path d="M12 6.5l5.5 5.5"/><path class="hlbar" d="M3.5 21h17"/></svg></button>
+  <button id="bBold" title="Жирный (Ctrl+B)" aria-label="Жирный"><svg viewBox="0 0 24 24" aria-hidden="true" style="stroke-width:2.2"><path d="M7 4.5h6a3.6 3.6 0 0 1 0 7.2H7zM7 11.7h7.2a3.9 3.9 0 0 1 0 7.8H7z"/></svg></button>
+  <button id="bItalic" title="Курсив (Ctrl+I)" aria-label="Курсив"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4.5h8M6 19.5h8"/><path d="M14.5 4.5L9.5 19.5" stroke-width="2.2"/></svg></button>
+  <button id="bUnder" title="Подчёркивание (Ctrl+U)" aria-label="Подчёркивание"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v7.2a5 5 0 0 0 10 0V4.5"/><path d="M5.5 19.5h13" stroke-width="2"/></svg></button>
+  <button id="bStrike" title="Зачёркивание" aria-label="Зачёркивание"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14" stroke-width="2.2"/><path d="M16.2 7.2c-.7-1.3-2-2.2-4.2-2.2-2.6 0-4.3 1.4-4.3 3.4 0 1.3.7 2.3 2.4 3"/><path d="M7.8 16.8c.8 1.3 2.2 2.2 4.4 2.2 2.8 0 4.6-1.5 4.6-3.6"/></svg></button>
+  <button id="bQuote" title="Цитата / блок с полоской" aria-label="Цитата"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5v13M8 8.5h9.5a2 2 0 0 1 2 2v2.5a2 2 0 0 1-2 2H8z"/><path d="M10.5 12.5h6"/></svg></button>
+  <span class="font-tool-wrap" id="fontToolWrap">
+    <button id="bFont" type="button" title="Выбрать шрифт" aria-label="Выбрать шрифт" aria-expanded="false"><span style="font-size:15px;font-weight:700;letter-spacing:-1px">Aa</span></button>
+    <div class="font-pop" id="fontPop" hidden>
+      <div class="font-pop-head">
+        <span class="font-pop-icon">Aa</span>
+        <div><strong>Выбор шрифта</strong><small>Применится к выделенному тексту</small></div>
+      </div>
+      <div class="font-card-grid" id="fontCardGrid"></div>
+      <div class="font-upload-bar">
+        <input type="file" id="fontFileInput" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2" hidden>
+        <button type="button" class="btn-font-upload" id="btnFontUpload" title="Загрузить шрифт с компьютера">
+          <svg viewBox="0 0 20 20" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 3v10M6 7l4-4 4 4M3 14v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2"/></svg>
+          <span>Загрузить свой шрифт</span>
+          <small>(.ttf, .otf, .woff)</small>
+        </button>
+      </div>
+      <div class="font-pop-preview" id="fontPopPreview">
+        <div class="fp-big">Пример текста / Sample</div>
+        <div class="fp-small">Аа Бб Вв Гг Дд Ее Жж · 0123456789</div>
+      </div>
+      <p class="font-note">Выдели текст в документе и нажми на шрифт для оформления.</p>
+    </div>
+  </span>
+  <button data-al="left" title="По левому краю" aria-label="По левому краю"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16M4 10.8h10M4 15.2h16M4 19.5h10"/></svg></button>
+  <button data-al="center" title="По центру" aria-label="По центру"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16M7 10.8h10M4 15.2h16M7 19.5h10"/></svg></button>
+  <button data-al="right" title="По правому краю" aria-label="По правому краю"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16M10 10.8h10M4 15.2h16M10 19.5h10"/></svg></button>
+  <span class="sep"></span>
+  <button id="bHdr" class="on" title="Верхний колонтитул" aria-label="Верхний колонтитул"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path class="f" d="M5 5.5A2.5 2.5 0 0 1 7.5 3h9A2.5 2.5 0 0 1 19 5.5V9H5z"/></svg></button>
+  <button id="bFtr" class="on" title="Нижний колонтитул" aria-label="Нижний колонтитул"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path class="f" d="M5 15h14v3.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 18.5z"/></svg></button>
+  <span class="sep"></span>
+  <button id="bAddPage" title="Добавить пустой белый лист" aria-label="Добавить пустой лист"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M12 8.5v7M8.5 12h7"/></svg></button>
+  <button id="bDupPage" title="Дублировать лист" aria-label="Дублировать лист"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="12" height="12.5" rx="2.5"/><path d="M15.5 8.5V5.5A2.5 2.5 0 0 0 13 3H5.5A2.5 2.5 0 0 0 3 5.5V13a2.5 2.5 0 0 0 2.5 2.5h3"/></svg></button>
+  <button id="bDelPage" title="Удалить лист" aria-label="Удалить лист"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 12h7"/></svg></button>
+  <span class="sep"></span>
+  <button id="bUndo" title="Отменить" aria-label="Отменить"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+  <button id="bRedo" title="Повторить" aria-label="Повторить"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14l5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+  <button id="bOpen" title="Открыть файл (Ctrl+O)" aria-label="Открыть файл"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H9l2 2.5h7.5A2.5 2.5 0 0 1 21 10v7.5a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/></svg></button>
+  <button id="bSave" title="Сохранить в файл (Ctrl+S)" aria-label="Сохранить в файл"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h9.5l4 4v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 18.5z"/><path d="M8 3v4.5h7V3M8 21v-6h8v6"/></svg></button>
+  <button id="bNew" title="Новый документ" aria-label="Новый документ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7.5A2.5 2.5 0 0 0 5 5.5v13A2.5 2.5 0 0 0 7.5 21h9a2.5 2.5 0 0 0 2.5-2.5V8z"/><path d="M14 3v5h5M12 11v6M9 14h6"/></svg></button>
+</div>
+<div class="right"><button id="bAccent" title="Цвет темы" aria-label="Цвет темы" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 1 0 0 17c1.2 0 1.8-.8 1.8-1.7 0-1.5-1.4-1.6-1.4-3 0-1 .8-1.7 1.8-1.7H17a3.7 3.7 0 0 0 3.5-3.7C20.5 6.9 16.7 3.5 12 3.5z"/><circle class="dot" cx="8" cy="11.5" r="1.3"/><circle class="dot" cx="11.5" cy="7.8" r="1.3"/><circle class="dot" cx="16" cy="9" r="1.3"/></svg></button><div class="acc-pop" id="accPop" role="dialog" aria-label="Палитра цветов">
+    <div class="style-panel">
+      <div class="sp-tabs" role="tablist">
+        <button type="button" class="sp-tab on" data-tab="theme" role="tab" aria-selected="true">Тема</button>
+        <button type="button" class="sp-tab" data-tab="mark" role="tab" aria-selected="false">Выделение</button>
+        <button type="button" class="sp-tab" data-tab="quote" role="tab" aria-selected="false">Цитата</button>
+        <button type="button" class="sp-tab" data-tab="table" role="tab" aria-selected="false">Таблица</button>
+        <button type="button" class="sp-tab" data-tab="text" role="tab" aria-selected="false">Текст</button>
+      </div>
+      <div class="sp-body">
+        <!-- Тема -->
+        <div class="sp-pane on" data-pane="theme">
+          <div class="sp-section-title">Цвет темы (акцент)</div>
+          <div class="sws" id="accSws"></div>
+          <div class="nm" id="accNm"></div>
+        </div>
+        <!-- Выделение -->
+        <div class="sp-pane" data-pane="mark">
+          <div class="sp-section-title">Цвет выделения текста</div>
+          <div class="sws mark-sws" id="markSws"></div>
+          <div class="nm" id="markNm">Жёлтый</div>
+        </div>
+        <!-- Цитата -->
+        <div class="sp-pane" data-pane="quote">
+          <div class="sp-section-title">Цвет полоски цитаты</div>
+          <div class="sws" id="quoteSws"></div>
+          <div class="nm" id="quoteNm">Оранжевый</div>
+          <div class="sp-slider-block">
+            <div class="sp-slider-head"><span>Прозрачность фона цитаты</span><span class="acc-op-val" id="quoteBgOpacityVal">10%</span></div>
+            <input type="range" id="quoteBgOpacity" min="0" max="60" step="1" value="10" aria-label="Прозрачность фона цитаты">
+          </div>
+        </div>
+        <!-- Таблица -->
+        <div class="sp-pane" data-pane="table">
+          <div class="sp-section-title">Полоска таблицы</div>
+          <div class="sws" id="tableSws"></div>
+          <div class="nm" id="tableNm">Как тема</div>
+          <div class="sp-slider-block">
+            <div class="sp-slider-head"><span>Прозрачность полоски</span><span class="acc-op-val" id="tableStripOpacityVal">100%</span></div>
+            <input type="range" id="tableStripOpacity" min="10" max="100" step="5" value="100" aria-label="Прозрачность полоски таблицы">
+          </div>
+          <div class="sp-divider"></div>
+          <div class="sp-section-title">Фон таблицы</div>
+          <div class="sws" id="tableBgSws"></div>
+          <div class="nm" id="tableBgNm">Без заливки</div>
+          <div class="sp-slider-block">
+            <div class="sp-slider-head"><span>Прозрачность фона</span><span class="acc-op-val" id="tableBgOpacityVal">8%</span></div>
+            <input type="range" id="tableBgOpacity" min="0" max="80" step="1" value="8" aria-label="Прозрачность фона таблицы">
+          </div>
+          <p class="acc-hint">Полоска видна у таблиц с паттерном. Фон применяется ко всем таблицам.</p>
+        </div>
+        <!-- Текст -->
+        <div class="sp-pane" data-pane="text">
+          <div class="sp-section-title">Прозрачность текста</div>
+          <div class="sp-slider-block">
+            <div class="sp-slider-head"><span>Непрозрачность текста в документе</span><span class="acc-op-val" id="textOpacityVal">100%</span></div>
+            <input type="range" id="textOpacity" min="20" max="100" step="1" value="100" aria-label="Непрозрачность текста">
+          </div>
+          <p class="acc-hint">Влияет на основной текст документа (не на интерфейс редактора).</p>
+        </div>
+      </div>
+    </div>
+  </div><button id="bTheme" title="Тема" aria-label="Тема"></button><button id="bExport" title="Экспорт в PDF" aria-label="Экспорт в PDF"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5"/><path d="M4 15v2.5A2.5 2.5 0 0 0 6.5 20h11a2.5 2.5 0 0 0 2.5-2.5V15"/></svg></button></div>
+</div>
+
+<input type="file" id="fileIn" accept=".json,application/json" hidden>
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="imgUI" aria-hidden="false">
+  <div class="sz">
+    <button data-p="25" title="25% ширины">25%</button><button data-p="50" title="50% ширины">50%</button><button data-p="75" title="75% ширины">75%</button><button data-p="100" title="Во всю ширину">100%</button>
+    <button data-f="none" title="В строке с текстом" aria-label="В строке с текстом" style="border-left:1px solid #fff"><svg viewBox="0 0 20 20"><path d="M2 4h16M2 16h16"/><rect x="7" y="7" width="6" height="6"/></svg></button>
+    <button data-f="fl" title="Слева, текст справа" aria-label="Слева, текст справа"><svg viewBox="0 0 20 20"><rect x="2" y="4" width="7" height="7"/><path d="M12 5h6M12 8h6M12 11h6M2 15h16"/></svg></button>
+    <button data-f="fr" title="Справа, текст слева" aria-label="Справа, текст слева"><svg viewBox="0 0 20 20"><rect x="11" y="4" width="7" height="7"/><path d="M2 5h6M2 8h6M2 11h6M2 15h16"/></svg></button><button data-f="free" title="Свободно (двигать как в Canva)" aria-label="Свободно"><svg viewBox="0 0 20 20"><path d="M10 2v16M2 10h16M10 2L7.8 4.2M10 2l2.2 2.2M10 18l-2.2-2.2M10 18l2.2-2.2M2 10l2.2-2.2M2 10l2.2 2.2M18 10l-2.2-2.2M18 10l-2.2 2.2"/></svg></button>
+    <button data-del title="Удалить картинку" style="border-left:1px solid #fff" aria-label="Удалить картинку"><svg viewBox="0 0 20 20"><path d="M4 6h12M8 6V4h4v2M6 6l1 11h6l1-11"/></svg></button>
+    <span class="pct" id="imgPct"></span>
+    <div class="img-cr-wrap" id="imgCrWrap" title="Скругление углов (Canva)">
+      <span class="img-cr-icon"><svg viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 16V9a5 5 0 0 1 5-5h7"/></svg></span>
+      <input type="range" id="imgCornerRange" min="0" max="64" step="1" value="0" title="Скругление углов">
+      <span class="img-cr-val" id="imgCornerVal">0px</span>
+      <div class="img-cr-chips">
+        <button type="button" data-cr="0" title="0px">0</button>
+        <button type="button" data-cr="12" title="12px">12</button>
+        <button type="button" data-cr="24" title="24px">24</button>
+        <button type="button" data-cr="999" title="Овал / Круг" aria-label="Овал / Круг"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/></svg></button>
+      </div>
+    </div>
+    </div>
+  <span class="hd nw" data-c="nw"></span><span class="hd ne" data-c="ne"></span><span class="hd sw" data-c="sw"></span><span class="hd se" data-c="se"></span>
+</div>
+<div id="imgGhost"></div><div id="dropLine"></div><div id="status" aria-hidden="true"><span id="stPage"></span><i></i><span id="stWords"></span></div><div id="gV"></div><div id="gH"></div>
+<div class="pages" id="pages">
+  <div id="sheets"></div>
+  <div class="hf hdr" id="hdr" contenteditable="true" data-ph="Верхний колонтитул"></div>
+  <div id="doc" class="docbody" contenteditable="true"></div>
+  <div id="chrome"></div>
+  <div class="hf ftr" id="ftr" contenteditable="true" data-ph="Нижний колонтитул"></div>
+  <div id="fnLayer"></div>
+  <div id="fnMeasure" aria-hidden="true"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
